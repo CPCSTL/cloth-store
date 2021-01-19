@@ -5,4 +5,5 @@ const SignInandUpPage = ()=> (
     <div className = 'sign-in-and-sign-up'>
 SIGN IN
     </div>
-)
+);
+export default SignInandUpPage
