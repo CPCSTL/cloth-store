@@ -10,7 +10,6 @@ const Header = ()=> (
     </Link>
     <div className='options'>
     <Link className='option' to='/shop'>Shop</Link>
-    <Link className='option' to='/signin'>Sign in</Link>
     <Link className='option' to='/contact'>Contact</Link>
     </div>
     
