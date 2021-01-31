@@ -12,8 +12,8 @@ import {auth} from './firbase/firebase.utils'
 
 
 class App extends Component {
-constructor(){
-  super();
+constructor(props){
+  super(props);
   this.state ={
     currentUser : null
   }
@@ -33,10 +33,10 @@ componentWillUnmount(){
   this.unsubscribeFromAuth()
 }
 
- render(){
+ render(props){
   return (
     <div className="App">
-    <Header currentUser={this.state.currentUser} />
+    <Header currentUser={this.state.currentUser}  />
     <Switch>
       <Route  exact path='/' component={HomePage} />
       <Route exact path='/shop' component={ShopPage} />
