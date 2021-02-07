@@ -1,25 +1,42 @@
 import {Component} from 'react'
 import FormInput from '../form-input/form-input.comp';
-import {signInWithGoogle} from '../../firbase/firebase.utils'
+import {auth, signInWithGoogle} from '../../firbase/firebase.utils'
+import {withRouter} from 'react-router-dom'
 
 
 
 import CustomButton from '../CustomButton/custom-button.comp'
 import'./sign-in.styles.scss'
 
+
+
+
 class SignIn extends Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             email : '',
             password: ''
         }
     }
 
-    handleSubmit = event => {
+    handleSubmit = async event => {
         event.preventDefault();
-        this.setState({email:'', password:''})
+        const {email, password} =this.state;
+        
+        try {
+            await auth.signInWithEmailAndPassword(email,password);
+            this.setState({email:'', password:''});
+            await this.props.history.push('/');
+        } catch(error){
+            console.log(error)
+        }
     };
+
+    handleGoogle = async ()=> {
+         await signInWithGoogle();
+          this.props.history.push('/')
+     }
 
     handleChange = event => {
         const {value , name} = event.target;
@@ -50,11 +67,14 @@ class SignIn extends Component{
             />
             <div className='buttons' >
             <CustomButton type='submit'> Sign In </CustomButton>
-             <CustomButton onClick={signInWithGoogle} isGoogleSignIn > Sign-in with Google </CustomButton>
+             <CustomButton onClick={this.handleGoogle} 
+             to='/'
+             type='button'
+              isGoogleSignIn > Sign-in with Google </CustomButton>
             </div>
             </form>
             </div>
         )
     }
 };
-export default SignIn
+export default withRouter(SignIn)

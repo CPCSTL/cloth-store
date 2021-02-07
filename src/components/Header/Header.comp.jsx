@@ -13,7 +13,7 @@ const Header = ({currentUser})=> (
     <Link className='option' to='/shop'>Shop</Link>
     <Link className='option' to='/contact'>Contact</Link>
     { currentUser ? 
-     (<div className='option' onClick={()=> auth.signOut()}>log out of {currentUser.displayName}</div>)
+     (<div className='option' onClick={()=> auth.signOut()}>welcome back {currentUser.displayName}</div>)
     :(<Link className='sign-color' to='/signin'> Sign in</Link>) }
     </div>
     

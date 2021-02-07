@@ -7,7 +7,7 @@ import './App.css';
 import ShopPage from './pages/shop-page/shop.comp'
 import Header from './components/Header/Header.comp'
 import SignInandUpPage from './pages/sign-in-and-up/sign-in-up-comp'
-import {auth} from './firbase/firebase.utils'
+import {auth, createUserProfileDocument} from './firbase/firebase.utils'
 
 
 
@@ -19,13 +19,26 @@ constructor(props){
   }
 }
 
+
+
 unsubscribeFromAuth = null;
 
 
 componentDidMount() {
-  this.unsubscribeFromAuth = auth.onAuthStateChanged((user)=>{
-    this.setState({currentUser:user})
-    console.log(user)
+  this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth=>{
+    if(userAuth){
+      const userRef = await createUserProfileDocument(userAuth);
+      await userRef.onSnapshot(snapShot => {
+        this.setState({
+          currentUser: {
+            id: snapShot.id,
+            ...snapShot.data()
+          }
+        })
+      })
+    }
+    this.setState({currentUser:userAuth})
+    
   }); 
 };
 
