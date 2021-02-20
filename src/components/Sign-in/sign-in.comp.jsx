@@ -27,16 +27,16 @@ class SignIn extends Component{
         try {
             await auth.signInWithEmailAndPassword(email,password);
             this.setState({email:'', password:''});
-            await this.props.history.push('/');
+            // await this.props.history.push('/');
         } catch(error){
             console.log(error)
         }
     };
 
-    handleGoogle = async ()=> {
-         await signInWithGoogle();
-          this.props.history.push('/')
-     }
+    // handleGoogle = async ()=> {
+    //      await signInWithGoogle();
+    //       this.props.history.push('/')
+    //  }
 
     handleChange = event => {
         const {value , name} = event.target;
@@ -67,7 +67,7 @@ class SignIn extends Component{
             />
             <div className='buttons' >
             <CustomButton type='submit'> Sign In </CustomButton>
-             <CustomButton onClick={this.handleGoogle} 
+             <CustomButton onClick={signInWithGoogle} 
              to='/'
              type='button'
               isGoogleSignIn > Sign-in with Google </CustomButton>
